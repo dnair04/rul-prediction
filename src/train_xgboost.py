@@ -6,23 +6,17 @@ import numpy as np
 import joblib
 import os
 
-# Paths
 DATA_DIR = "outputs"
 MODEL_DIR = "models"
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-# Load preprocessed data (fixed file name)
 train_path = os.path.join(DATA_DIR, "train_FD001_clean.csv")
 train = pd.read_csv(train_path)
 
-# Features and target
 X = train.drop(columns=["RUL"])
 y = train["RUL"]
-
-# Train/val split
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Model
 model = XGBRegressor(
     objective="reg:squarederror",
     n_estimators=1000,
